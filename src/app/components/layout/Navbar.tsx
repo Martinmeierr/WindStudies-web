@@ -11,7 +11,7 @@ export function Navbar() {
           transition={{ duration: 0.6 }}
         >
           <Link to="/">
-            <img src="/logo-black.png" alt="WindStudies" className="h-6 md:h-7 w-auto object-contain" />
+            <img src={`${import.meta.env.BASE_URL}logo-black.png`} alt="WindStudies" className="h-6 md:h-7 w-auto object-contain" />
           </Link>
         </motion.div>
 

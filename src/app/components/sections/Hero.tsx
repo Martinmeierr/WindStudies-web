@@ -21,7 +21,7 @@ export function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-white w-full">
         <motion.img
-          src="/logo-white.png"
+          src={`${import.meta.env.BASE_URL}logo-white.png`}
           alt="WindStudies"
           className="h-8 md:h-10 w-auto mb-8 md:mb-10 opacity-90"
           initial={{ opacity: 0 }}

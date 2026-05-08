@@ -189,7 +189,7 @@ export default function SondeoPrevio() {
               El equipo de WindStudies va a revisar tus respuestas antes de la reunión.
             </p>
           </div>
-          <img src="/logo-black.png" alt="WindStudies" className="h-6 w-auto opacity-30 mt-4" />
+          <img src={`${import.meta.env.BASE_URL}logo-black.png`} alt="WindStudies" className="h-6 w-auto opacity-30 mt-4" />
           <Link to="/" className="text-sm text-black/40 hover:text-black transition-colors underline underline-offset-4">
             Volver al inicio
           </Link>
@@ -204,7 +204,7 @@ export default function SondeoPrevio() {
       <header className="border-b border-black/10 bg-white/90 backdrop-blur-xl sticky top-0 z-10">
         <div className="max-w-2xl mx-auto flex h-16 items-center justify-between px-6">
           <Link to="/">
-            <img src="/logo-black.png" alt="WindStudies" className="h-7 w-auto object-contain" />
+            <img src={`${import.meta.env.BASE_URL}logo-black.png`} alt="WindStudies" className="h-7 w-auto object-contain" />
           </Link>
           <p className="text-xs text-black/30 tracking-widest uppercase">Sondeo Previo</p>
         </div>
