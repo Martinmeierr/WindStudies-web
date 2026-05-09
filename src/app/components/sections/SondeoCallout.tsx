@@ -11,7 +11,7 @@ export function SondeoCallout() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="border border-black/10 p-8 md:p-16"
+          className="border border-black/10 rounded-[8px] p-8 md:p-16"
         >
           <p className="text-xs tracking-widest uppercase text-black/40 mb-5">¿Tiene sentido trabajar juntos?</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-5 md:mb-6">
@@ -22,7 +22,7 @@ export function SondeoCallout() {
           </p>
           <Link
             to="/sondeo"
-            className="inline-flex items-center gap-2 bg-black text-white px-6 md:px-8 py-3 md:py-4 text-sm font-semibold tracking-wide hover:bg-black/80 transition-colors group"
+            className="inline-flex items-center gap-2 bg-black text-white px-6 md:px-8 py-3 md:py-4 text-sm font-semibold tracking-wide rounded-[6px] hover:bg-black/80 transition-colors group"
           >
             Completar Sondeo Previo
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

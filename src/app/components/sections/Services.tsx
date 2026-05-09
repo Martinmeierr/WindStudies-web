@@ -27,11 +27,11 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-xs tracking-widest uppercase text-white/40 mb-12 md:mb-16 text-center"
+          className="text-xs tracking-widest uppercase text-white/40 mb-12 md:mb-20 text-center"
         >
           Servicios
         </motion.p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
           {SERVICES.map((service, i) => (
             <motion.div
               key={service.number}
@@ -40,9 +40,9 @@ export function Services() {
               transition={{ duration: 0.8, delay: i * 0.15 }}
               viewport={{ once: true }}
             >
-              <p className="text-xs tracking-widest text-white/30 mb-4">{service.number}</p>
-              <h3 className="text-lg md:text-xl font-semibold leading-snug mb-4">{service.title}</h3>
-              <p className="text-sm font-light leading-relaxed text-white/60">{service.description}</p>
+              <p className="text-xs tracking-widest text-white/30 mb-5">{service.number}</p>
+              <h3 className="text-xl md:text-2xl font-semibold leading-snug mb-5">{service.title}</h3>
+              <p className="text-base font-light leading-relaxed text-white/60">{service.description}</p>
             </motion.div>
           ))}
         </div>

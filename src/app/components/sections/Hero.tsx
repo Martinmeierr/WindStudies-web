@@ -51,7 +51,7 @@ export function Hero() {
         >
           <Link
             to="/sondeo"
-            className="inline-flex items-center gap-2 bg-white text-black px-6 md:px-8 py-3 md:py-4 text-sm font-semibold tracking-wide hover:bg-white/90 transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-black px-6 md:px-8 py-3 md:py-4 text-sm font-semibold tracking-wide rounded-[6px] hover:bg-white/90 transition-colors"
           >
             Completar Sondeo Previo
           </Link>

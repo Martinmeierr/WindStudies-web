@@ -394,7 +394,7 @@ export default function SondeoPrevio() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-black text-white py-4 text-sm font-semibold tracking-wide hover:bg-black/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-black text-white py-4 text-sm font-semibold tracking-wide rounded-[6px] hover:bg-black/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isSubmitting
                 ? <><Loader2 className="w-4 h-4 animate-spin" /> Enviando...</>
