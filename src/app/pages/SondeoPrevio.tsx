@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
@@ -146,6 +146,10 @@ function RadioOption({ value, label, selected }: { value: string; label: string;
 
 export default function SondeoPrevio() {
   const [submitted, setSubmitted] = useState(false);
+  // Código de cliente embebido en el link (windstudies-web/#/sondeo?cliente=COD).
+  // Si está presente, el sondeo se archiva en la carpeta de ese cliente; si no, va a SONDEOS PROSPECTOS.
+  const [searchParams] = useSearchParams();
+  const codigo = (searchParams.get("cliente") || "").trim();
 
   const {
     register,
@@ -171,7 +175,7 @@ export default function SondeoPrevio() {
 
   async function onSubmit(data: SondeoFormValues) {
     try {
-      await callWebhook(WEBHOOKS.sondeo, data);
+      await callWebhook(WEBHOOKS.sondeo, { ...data, codigo });
       setSubmitted(true);
     } catch (err) {
       toast.error(err instanceof WebhookError ? err.message : "No se pudo enviar. Intentá de nuevo.");
