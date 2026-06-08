@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch, type Control, type UseFormSetValue, type UseFormGetValues } from "react-hook-form";
 import { Link, useSearchParams } from "react-router";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { Loader2, CheckCircle2, Check } from "lucide-react";
 import { toast } from "sonner";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
-import { Checkbox } from "../components/ui/checkbox";
 import { Label } from "../components/ui/label";
 import { cn } from "../components/ui/utils";
 import { callWebhook, WebhookError, WEBHOOKS } from "../lib/webhooks";
@@ -142,6 +141,55 @@ function RadioOption({ value, label, selected }: { value: string; label: string;
   );
 }
 
+// ─── Q7: checkbox múltiple AISLADO ───────────────────────────────────────────
+// Vive en su propio componente con useWatch para que SOLO esto re-renderice al
+// togglear. Antes, watch("q7") en el cuerpo de SondeoPrevio re-renderizaba TODO
+// el form en cada click, lo que disparaba un loop de setState en los RadioGroup
+// de Radix (React #185). Aislándolo, los radios no se tocan al marcar q7.
+function Q7Checkboxes({ control, setValue, getValues }: {
+  control: Control<SondeoFormValues>;
+  setValue: UseFormSetValue<SondeoFormValues>;
+  getValues: UseFormGetValues<SondeoFormValues>;
+}) {
+  const q7Value = useWatch({ control, name: "q7" }) ?? [];
+
+  function toggle(option: string) {
+    const current = getValues("q7") ?? [];
+    const next = current.includes(option)
+      ? current.filter((v) => v !== option)
+      : [...current, option];
+    setValue("q7", next, { shouldValidate: true });
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      {QUESTIONS.q7.options.map((opt) => {
+        const checked = q7Value.includes(opt);
+        return (
+          <label
+            key={opt}
+            className={cn(
+              "flex items-center gap-3 border px-4 py-3 cursor-pointer transition-all duration-150 select-none",
+              checked ? "border-black bg-black/5 text-black" : "border-black/15 text-black/60 hover:border-black/40 hover:text-black"
+            )}
+            onClick={() => toggle(opt)}
+          >
+            <span
+              className={cn(
+                "flex size-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors",
+                checked ? "bg-black border-black text-white" : "border-black/30 bg-transparent"
+              )}
+            >
+              {checked && <Check className="size-3" strokeWidth={3} />}
+            </span>
+            <span className="text-sm">{opt}</span>
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function SondeoPrevio() {
@@ -155,23 +203,12 @@ export default function SondeoPrevio() {
     register,
     control,
     handleSubmit,
-    watch,
     setValue,
     getValues,
     formState: { errors, isSubmitting },
   } = useForm<SondeoFormValues>({
     defaultValues: { q7: [] },
   });
-
-  const q7Value = watch("q7") ?? [];
-
-  function toggleQ7(option: string) {
-    const current = getValues("q7") ?? [];
-    const next = current.includes(option)
-      ? current.filter((v) => v !== option)
-      : [...current, option];
-    setValue("q7", next, { shouldValidate: true });
-  }
 
   async function onSubmit(data: SondeoFormValues) {
     try {
@@ -316,30 +353,7 @@ export default function SondeoPrevio() {
               title={QUESTIONS.q7.title}
               hint={QUESTIONS.q7.hint}
             />
-            <div className="flex flex-col gap-2">
-              {QUESTIONS.q7.options.map((opt) => {
-                const checked = q7Value.includes(opt);
-                return (
-                  <label
-                    key={opt}
-                    className={cn(
-                      "flex items-center gap-3 border px-4 py-3 cursor-pointer transition-all duration-150 select-none",
-                      checked ? "border-black bg-black/5 text-black" : "border-black/15 text-black/60 hover:border-black/40 hover:text-black"
-                    )}
-                    onClick={() => toggleQ7(opt)}
-                  >
-                    {/* Checkbox presentacional: el <label> es el único que togglea.
-                        pointer-events-none evita el doble disparo (label + control) que causaba React #185. */}
-                    <Checkbox
-                      checked={checked}
-                      tabIndex={-1}
-                      className="shrink-0 pointer-events-none"
-                    />
-                    <span className="text-sm">{opt}</span>
-                  </label>
-                );
-              })}
-            </div>
+            <Q7Checkboxes control={control} setValue={setValue} getValues={getValues} />
             {errors.q7 && <p className="text-xs text-red-500 mt-1">Seleccioná al menos una opción.</p>}
           </section>
 
