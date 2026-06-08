@@ -328,11 +328,12 @@ export default function SondeoPrevio() {
                     )}
                     onClick={() => toggleQ7(opt)}
                   >
+                    {/* Checkbox presentacional: el <label> es el único que togglea.
+                        pointer-events-none evita el doble disparo (label + control) que causaba React #185. */}
                     <Checkbox
                       checked={checked}
-                      onCheckedChange={() => toggleQ7(opt)}
-                      onClick={(e) => e.stopPropagation()}
-                      className="shrink-0"
+                      tabIndex={-1}
+                      className="shrink-0 pointer-events-none"
                     />
                     <span className="text-sm">{opt}</span>
                   </label>
