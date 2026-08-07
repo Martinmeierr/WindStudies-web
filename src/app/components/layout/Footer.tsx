@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/10 py-12 bg-white">
+    <footer className="border-t border-black/10 bg-white py-14">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <img src={`${import.meta.env.BASE_URL}logo-black.png`} alt="WindStudies" className="h-6 w-auto object-contain opacity-70" />
         <p className="text-sm text-black/40">© {new Date().getFullYear()} WindStudies. Todos los derechos reservados.</p>

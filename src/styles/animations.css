@@ -1,0 +1,30 @@
+/* Marquee track: two identical copies of the content, shifted by exactly one
+   copy's width. Landing on the duplicate is what makes the loop invisible. */
+@keyframes ws-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Slow drift for decorative background layers. */
+@keyframes ws-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -12px, 0); }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor links land below the fixed navbar instead of underneath it. */
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
